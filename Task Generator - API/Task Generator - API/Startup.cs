@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Task_Generator___API.Models;
 
 namespace Task_Generator___API
 {
@@ -32,6 +34,9 @@ namespace Task_Generator___API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Task_Generator___API", Version = "v1" });
             });
+            services.AddControllers();
+            string connectionString = Configuration.GetConnectionString("ConnectionString");
+            services.AddDbContext<DBContext>(option => option.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
