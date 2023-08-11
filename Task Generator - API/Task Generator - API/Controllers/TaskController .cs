@@ -16,7 +16,7 @@ using Task_Generator___API.ViewModels;
 namespace Task_Generator___API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("")]
     public class TaskController : ControllerBase
     {
         private readonly ILogger<TaskController> _logger;

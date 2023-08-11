@@ -119,18 +119,23 @@ namespace Task_Generator___API.Services
                 };
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-              {
-                new Claim(ClaimTypes.Name, userInfo.Email)
-              }),
-                Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_iconfiguration.GetSection("JWT:DurationInMinutes").Value)),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            //Since we are not returning JWT in response so there is no need to create that
+
+            //var tokenHandler = new JwtSecurityTokenHandler();
+            //var tokenKey = Encoding.UTF8.GetBytes(_iconfiguration["JWT:key"]);
+            //var tokenDescriptor = new SecurityTokenDescriptor
+            //{
+            //    Subject = new ClaimsIdentity(new Claim[]
+            //  {
+            //    new Claim(ClaimTypes.Name, userInfo.Email)
+            //  }),
+            //    Expires = DateTime.UtcNow.AddMinutes(Convert.ToDouble(_iconfiguration.GetSection("JWT:DurationInMinutes").Value)),
+            //    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
+            //};
+            //var token = tokenHandler.CreateToken(tokenDescriptor);
+
+
             var passwordHasher = new PasswordHasher<User>();
             var hashedPassword = passwordHasher.HashPassword(null, userInfo.Password);
 
