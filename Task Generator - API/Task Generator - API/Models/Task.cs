@@ -10,6 +10,6 @@ namespace Task_Generator___API.Models
 
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
-
+        public bool isDelete { get; set; }
     }
 }

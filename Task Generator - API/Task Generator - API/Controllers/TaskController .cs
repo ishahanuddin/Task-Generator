@@ -31,7 +31,7 @@ namespace Task_Generator___API.Controllers
         [Authorize] // Requires authentication for this action
         [HttpPost]
         [Route("create-task")]
-        public async Task<IActionResult> CreateTask(string name)
+        public IActionResult CreateTask(string name)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace Task_Generator___API.Controllers
         [Authorize] // Requires authentication for this action
         [HttpGet]
         [Route("list-tasks")]
-        public async Task<IActionResult> GetTasks()
+        public IActionResult GetTasks()
         {
             try
             {
@@ -70,6 +70,31 @@ namespace Task_Generator___API.Controllers
                 }
 
                 var tasks = _taskService.GetTasks();
+                return StatusCode(tasks.Code, new { tasks = tasks.Data });
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    ErrorMessage = ex.Message
+                });
+            }
+        }
+
+        [Authorize] // Requires authentication for this action
+        [HttpPost]
+        [Route("delete-tasks")]
+        public IActionResult DeleteTasks(List<int> ids)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var tasks = _taskService.DeleteTasks(ids);
                 return StatusCode(tasks.Code, new { tasks = tasks.Data });
 
             }

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Task_Generator___API.Services
         }
         public Response<Models.Task> CreateTask(string taskName)
         {
-            var task = new Models.Task { Name = taskName };
+            var task = new Models.Task { Name = taskName, isDelete = false };
             _mainContext.Tasks.Add(task);
             _mainContext.SaveChanges();
 
@@ -35,11 +36,25 @@ namespace Task_Generator___API.Services
 
         Response<List<Models.Task>> ITaskInterface.GetTasks()
         {
-            var tasks = _mainContext.Tasks.ToList();
+            var tasks = _mainContext.Tasks.Where(x => x.isDelete == false).ToList();
             return new Response<List<Models.Task>>
             {
                 Data = tasks,
                 Message = "Tasks fetched successfully",
+                Success = true,
+                Code = 200,
+            };
+        }
+        public Response<string> DeleteTasks(List<int> ids)
+        {
+            var tasks = _mainContext.Tasks.Where(x => ids.Contains(x.Id)).ToList();
+            tasks.ForEach(x => x.isDelete = true);
+            _mainContext.SaveChanges();
+
+            return new Response<string>
+            {
+                Data = "Tasks Deleted Successfully",
+                Message = "Tasks Deleted successfully",
                 Success = true,
                 Code = 200,
             };

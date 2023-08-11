@@ -8,6 +8,6 @@ namespace Task_Generator___API.Services.Interfaces
     {
         Response<Models.Task> CreateTask(string taskName);
         Response<List<Models.Task>> GetTasks();
-
+        Response<string> DeleteTasks(List<int> ids);
     }
 }
