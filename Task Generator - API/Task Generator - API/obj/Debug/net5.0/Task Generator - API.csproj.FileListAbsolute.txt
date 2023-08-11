@@ -21,7 +21,6 @@ C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator 
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -63,3 +62,5 @@ C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator 
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\obj\Debug\net5.0\Task Generator - API.pdb
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\obj\Debug\net5.0\Task Generator - API.genruntimeconfig.cache
 C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\obj\Debug\net5.0\ref\Task Generator - API.dll
+C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\suddin\source\repos\task-generator\Task Generator - API\Task Generator - API\bin\Debug\net5.0\Newtonsoft.Json.dll

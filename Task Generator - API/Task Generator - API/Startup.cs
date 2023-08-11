@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,12 +9,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Task_Generator___API.Models;
+using Task_Generator___API.Services;
+using Task_Generator___API.Services.Interfaces;
 
 namespace Task_Generator___API
 {
@@ -37,6 +43,22 @@ namespace Task_Generator___API
             services.AddControllers();
             string connectionString = Configuration.GetConnectionString("ConnectionString");
             services.AddDbContext<DBContext>(option => option.UseSqlServer(connectionString));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetSection("JWT:key").Value)),
+                            ValidateIssuer = false,
+                            ValidateAudience = false
+                        };
+                    });
+            services.AddScoped<IUserServiceInterface, UserService>();
+            services.AddScoped<IUtilityInterface, UtilityService>();
+            services.AddScoped<ITaskInterface, TaskService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +75,7 @@ namespace Task_Generator___API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
