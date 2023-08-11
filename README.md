@@ -1,0 +1,1 @@
+In this project, I have developed a straightforward REST API using ASP .NET Core, focusing on user authentication, task management, and data persistence. I have also created a basic front-end to interact with the API in React. 
