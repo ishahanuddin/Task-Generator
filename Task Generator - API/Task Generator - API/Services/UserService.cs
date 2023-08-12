@@ -27,11 +27,11 @@ namespace Task_Generator___API.Services
             _utility = utility;
         }
 
-        async Task<Response<string>> IUserServiceInterface.Login(UserInfo loginDetails)
+        async Task<ResponseViewModel<string>> IUserServiceInterface.Login(UserInfoViewModel loginDetails)
         {
             if(!_utility.ValidateEmail(loginDetails.Email))
             {
-                return new Response<string>
+                return new ResponseViewModel<string>
                 {
                     Data = "",
                     Message = "Invalid Email Address",
@@ -45,7 +45,7 @@ namespace Task_Generator___API.Services
 
             if (userExists == null)
             {
-                return new Response<string>
+                return new ResponseViewModel<string>
                 {
                     Data = "",
                     Message = "User not found",
@@ -75,7 +75,7 @@ namespace Task_Generator___API.Services
                 );
 
                 var tokenHandler = new JwtSecurityTokenHandler();
-                return new Response<string>
+                return new ResponseViewModel<string>
                 {
                     Data = tokenHandler.WriteToken(token),
                     Message = "User Logged in Successfully",
@@ -84,20 +84,20 @@ namespace Task_Generator___API.Services
                 };
             }
 
-            return new Response<string>
+            return new ResponseViewModel<string>
             {
                 Data = "",
                 Message = "Invalid credentials",
-                Success = true,
+                Success = false,
                 Code = 401,
             };
         }
 
-        async Task<Response<User>> IUserServiceInterface.Register(UserInfo userInfo)
+        async Task<ResponseViewModel<User>> IUserServiceInterface.Register(UserInfoViewModel userInfo)
         {
             if (!_utility.ValidateEmail(userInfo.Email))
             {
-                return new Response<User>
+                return new ResponseViewModel<User>
                 {
                     Data = null,
                     Message = "Invalid Email Address",
@@ -110,7 +110,7 @@ namespace Task_Generator___API.Services
 
             if (userExists != null)
             {
-                return new Response<User>
+                return new ResponseViewModel<User>
                 {
                     Message = "Email already exists!",
                     Success = false,
@@ -144,7 +144,7 @@ namespace Task_Generator___API.Services
             _mainContext.SaveChanges();
 
 
-            return new Response<User>
+            return new ResponseViewModel<User>
             {
                 Data = user,
                 Message = "User Registered Successfully",

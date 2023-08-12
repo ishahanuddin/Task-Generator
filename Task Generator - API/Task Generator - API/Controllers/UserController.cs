@@ -28,7 +28,7 @@ namespace Task_Generator___API.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> RegisterAsync(UserInfo userInfo)
+        public async Task<IActionResult> RegisterAsync([FromBody] UserInfoViewModel userInfo)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace Task_Generator___API.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(UserInfo userInfo)
+        public async Task<IActionResult> Login([FromBody] UserInfoViewModel userInfo)
         {
             try
             {
@@ -103,13 +103,13 @@ namespace Task_Generator___API.Controllers
         [Authorize] // Requires authentication for this action
         [HttpGet]
         [Route("user")]
-        public async Task<IActionResult> GetUser()
+        public IActionResult GetUser()
         {
             try
             {
 
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var email = User.FindFirstValue(ClaimTypes.Name);
+                var email = User.FindFirstValue(ClaimTypes.Name)    ;
 
                 return StatusCode(200, new { user = new { id = Convert.ToInt16(userId), email = email } });
             }

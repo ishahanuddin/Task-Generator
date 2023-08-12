@@ -31,7 +31,7 @@ namespace Task_Generator___API.Controllers
         [Authorize] // Requires authentication for this action
         [HttpPost]
         [Route("create-task")]
-        public IActionResult CreateTask(string name)
+        public IActionResult CreateTask([FromBody] Models.Task task)
         {
             try
             {
@@ -40,13 +40,13 @@ namespace Task_Generator___API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                Response<Models.Task> res = _taskService.CreateTask(name);
-                var task = new
+                ResponseViewModel<Models.Task> res = _taskService.CreateTask(task.Name);
+                var taskObject = new
                 {
                     id = res.Data.Id,
                     name = res.Data.Name,
                 };
-                return StatusCode(res.Code, new { task = task });
+                return StatusCode(res.Code, new { task = taskObject });
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace Task_Generator___API.Controllers
         [Authorize] // Requires authentication for this action
         [HttpPost]
         [Route("delete-tasks")]
-        public IActionResult DeleteTasks(List<int> ids)
+        public IActionResult DeleteTasks([FromBody] TaskIDsViewModel taskIds)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace Task_Generator___API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var tasks = _taskService.DeleteTasks(ids);
+                var tasks = _taskService.DeleteTasks(taskIds);
                 return StatusCode(tasks.Code, new { tasks = tasks.Data });
 
             }

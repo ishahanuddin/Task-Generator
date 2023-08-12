@@ -6,8 +6,8 @@ namespace Task_Generator___API.Services.Interfaces
 {
     public interface ITaskInterface
     {
-        Response<Models.Task> CreateTask(string taskName);
-        Response<List<Models.Task>> GetTasks();
-        Response<string> DeleteTasks(List<int> ids);
+        ResponseViewModel<Models.Task> CreateTask(string taskName);
+        ResponseViewModel<List<Models.Task>> GetTasks();
+        ResponseViewModel<string> DeleteTasks(TaskIDsViewModel ids);
     }
 }

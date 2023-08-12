@@ -19,13 +19,13 @@ namespace Task_Generator___API.Services
         {
             _mainContext = context;
         }
-        public Response<Models.Task> CreateTask(string taskName)
+        public ResponseViewModel<Models.Task> CreateTask(string taskName)
         {
             var task = new Models.Task { Name = taskName, isDelete = false };
             _mainContext.Tasks.Add(task);
             _mainContext.SaveChanges();
 
-            return new Response<Models.Task>
+            return new ResponseViewModel<Models.Task>
             {
                 Data = task,
                 Message = "Task added successfully",
@@ -34,10 +34,10 @@ namespace Task_Generator___API.Services
             };
         }
 
-        Response<List<Models.Task>> ITaskInterface.GetTasks()
+        ResponseViewModel<List<Models.Task>> ITaskInterface.GetTasks()
         {
             var tasks = _mainContext.Tasks.Where(x => x.isDelete == false).ToList();
-            return new Response<List<Models.Task>>
+            return new ResponseViewModel<List<Models.Task>>
             {
                 Data = tasks,
                 Message = "Tasks fetched successfully",
@@ -45,13 +45,13 @@ namespace Task_Generator___API.Services
                 Code = 200,
             };
         }
-        public Response<string> DeleteTasks(List<int> ids)
+        public ResponseViewModel<string> DeleteTasks(TaskIDsViewModel tasksIds)
         {
-            var tasks = _mainContext.Tasks.Where(x => ids.Contains(x.Id)).ToList();
+            var tasks = _mainContext.Tasks.Where(x => tasksIds.Ids.Contains(x.Id)).ToList();
             tasks.ForEach(x => x.isDelete = true);
             _mainContext.SaveChanges();
 
-            return new Response<string>
+            return new ResponseViewModel<string>
             {
                 Data = "Tasks Deleted Successfully",
                 Message = "Tasks Deleted successfully",

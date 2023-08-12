@@ -34,6 +34,16 @@ namespace Task_Generator___API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularDev",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://127.0.0.1:5173")  // Replace with your Angular frontend's URL
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -59,6 +69,13 @@ namespace Task_Generator___API
             services.AddScoped<IUtilityInterface, UtilityService>();
             services.AddScoped<ITaskInterface, TaskService>();
 
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +91,8 @@ namespace Task_Generator___API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("AllowAngularDev");
+
 
             app.UseAuthentication();
             app.UseAuthorization();

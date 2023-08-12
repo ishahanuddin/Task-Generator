@@ -2,7 +2,7 @@
 
 namespace Task_Generator___API.ViewModels
 {
-    public class Response<T>
+    public class ResponseViewModel<T>
     {
         public T Data { get; set; }
         public bool Success { get; set; } = true;

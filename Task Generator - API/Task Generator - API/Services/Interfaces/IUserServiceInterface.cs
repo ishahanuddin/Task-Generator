@@ -19,7 +19,7 @@ namespace Task_Generator___API.Services.Interfaces
 {
     public interface IUserServiceInterface
     {
-        Task<Response<string>> Login(UserInfo loginDetails);
-        Task<Response<User>> Register(UserInfo loginDetails);
+        Task<ResponseViewModel<string>> Login(UserInfoViewModel loginDetails);
+        Task<ResponseViewModel<User>> Register(UserInfoViewModel loginDetails);
     }
 }
